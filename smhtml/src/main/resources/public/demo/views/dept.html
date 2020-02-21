@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>部门信息显示 页面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+</head>
+<body style="margin: 15px;">
+<div class="layui-content">
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class=" layui-card-body" style="margin: 5px 0px 5px 0px">
+                    <div class="layui-inline">
+                        <input class="layui-input" placeholder="请输入相应的编号" name="id"
+                               id="demoReload" autocomplete="off">
+                    </div>
+                    <button id="btnSeach" class="layui-btn" data-type="reload">搜索</button>
+                </div>
+                <fieldset class="layui-elem-field site-demo-button">
+                    <legend>按钮组</legend>
+                    <div class="layui-btn-group">
+                        <button id="add" type="button" class="layui-btn layui-btn-sm">
+                            <i class="layui-icon"></i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm">
+                            <i class="layui-icon"></i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm">
+                            <i class="layui-icon"></i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm">
+                            <i class="layui-icon"></i>
+                        </button>
+                    </div>
+                </fieldset>
+                <table id="kjx" class="layui-hide layui-card-body"
+                       lay-filter="test"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<div id="updateForm" style="display: none">
+    <form class="layui-form" action="" lay-filter="test1">
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="deptno" lay-verify="title"
+                       autocomplete="off" placeholder="请输入部门编号" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="dname" lay-verify="title"
+                       autocomplete="off" placeholder="请输入部门名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="loc" lay-verify="title" autocomplete="off"
+                       placeholder="请输入部门地址" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="*">提交</button>
+                <button id="addqx" class="layui-btn layui-btn-primary">取消</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="layui.js" charset="utf-8"></script>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../layui/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table', 'layer'], function() {
+
+        var table = layui.table;
+        var form = layui.form;
+        var layer=layui.layer;
+
+        table.render({
+            elem : '#kjx',
+            url : '/dept/showDept',
+            method:'POST',
+            cellMinWidth : 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,
+            cols : [ [ {
+                field : 'deptno',
+                title : '部门编号',
+                sort : true
+            }, {
+                type : 'checkbox'
+            }, {
+                field : 'dname',
+                title : '部门名'
+            }, {
+                field : 'loc',
+                title : '地址',
+                sort : true
+            }, {
+                title : '操作',
+                toolbar : "#barDemo"
+            } ] ],
+            page : true,
+            id : 'testReload'
+        });
+    });
+</script>
+
+</body>
+</html>
